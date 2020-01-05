@@ -1,2 +1,4 @@
-#!/bin/bash
-gcc -c unix.c && gfortran -o spice -std=legacy spice.f unix.o
+#!/bin/sh
+#gcc -c unix.c && gfortran -o spice -std=legacy spice.f unix.o
+gcc -g -O0 -c unix.c && gfortran -g -O0 -o spice -finteger-4-integer-8 -std=legacy spice.f unix.o
+

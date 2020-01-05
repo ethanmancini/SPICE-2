@@ -5,11 +5,11 @@
 /*
  * loc_ - return the address of arg
  */
-int
+unsigned long
 loc_( arg )
-	int *arg;
+	long int *arg;
 {
-	return( (int) arg );
+	return( (unsigned long) arg );
 }
 
 
@@ -76,7 +76,7 @@ char  *
 itoc( number )
 	int	number;
 {
-	char string[3];
+  static char string[3];
 
 	/*
 	 * make a two digit string from the least significant digits of number
@@ -184,11 +184,26 @@ move_( array1, index1, array2, index2, length )
 }
 
 
+/*
+  Super obnoxious: they are assuming that ints are 4 bytes, doubles 8,
+  complex 16, even though there are supposedly pains taken to handle when
+  they aren't.  Then they call "zero4" and friends on all ints.
+
+  On a modern 64 bit system we have 8 byte pointers, and for a variety of
+  reasons this makes us need to so 8 byte ints as well (because spice
+  is hamfistedly accessing pointer and then storing them in integers).
+
+  So let's fake this out and make "zero4" and the other "4" functions
+  actually copy 8, because that's what integers will be
+
+  These should really be named for the data types they zero instead of
+  the sizes!
+*/
 zero4_( array, length )
 	char		*array;
 	unsigned	*length;
 {
-	mclear( array, *length * 4 );
+	mclear( array, *length * 8 );
 }
 
 
@@ -212,7 +227,7 @@ copy4_( from, to, length )
 	char		*from, *to;
 	int		*length;
 {
-	mcopy( from, to, *length * 4 );
+	mcopy( from, to, *length * 8 );
 }
 
 
