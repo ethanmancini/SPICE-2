@@ -1,29 +1,27 @@
- Read the Wiki on GitHub for the state of this version. -E
- 
-SPICE 2 Hacked for Linux
-Modifications by Mike Uchima (aka JustBrewIt) - justbrewit@pobox.com
-June 9, 2016
+SPICE 2 Hacked for Linux (AMD-64 only)
+Modifications by Mike Uchima (aka JustBrewIt) - justbrewit@pobox.com - June 9, 2016
+Further Modifications by Tom Russo - January 2020
 
-Changes from the upstream version (original versions of files were renamed
-to have suffix .original):
-
-* Declarations were added to spice.f for all variables used to store time
-  values, to eliminate compile errors.
-
-* Use of VAX assembly language in unix.c was disabled.
-
-* Code was added to grab the argc/argv values during C runtime startup.
-
-The binary here was built on Ubuntu 14.04 LTS 64-bit; it may or may not run
-on other distros. To rebuild from source:
+Build Instructions for Ubuntu 14.04 LTS 64-bit:
 
 1. Make sure you have the gfortran package installed (i.e. "apt-get install
    gfortran").
 
 2. Run the build script in this directory (i.e. "./build").
 
-Note: I haven't tested that it actually produces correct results; I haven't
-used SPICE in over 30 years and I'm not about to re-learn it now. But the
-program loads, and errors out with a "INPUT DECK (FILE) CONTAINS NO DATA"
-error if you hit ^D, which indicates that it is sitting there waiting for a
-simulation file on standard input.
+News: 
+1/20/20
+   SPICE-2 now compiles and runs without error on AMD64 systems thanks to Tom Russo. To be 
+   completely honest, I had forgotten this repo exists until I got an email notification about
+   the pull request. In the long term, making this arch agnostic is a goal. In the near future,
+   I will work on releasing some prebuilt packages and be doing some testing on various distros. 
+
+-Ethan Mancini
+
+7/9/16
+
+   Right now, SPICE-2 compiles thanks to the hard work of Mike Uchima. Upon running a simulation, 
+   it throws a segmentation fault and crashes. I'm going to be focusing my time on getting SPICE to 
+   do a clean compile in hope of the seg fault being fixed by that. 
+
+-Ethan Mancini
