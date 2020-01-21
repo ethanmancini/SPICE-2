@@ -16,7 +16,7 @@ News:
    the pull request. In the long term, making this arch agnostic is a goal. In the near future,
    I will work on releasing some prebuilt packages and be doing some testing on various distros. 
 
--Ethan Mancini
+-Ethan Mancini (ETM)
 
 7/9/16
 
@@ -24,4 +24,4 @@ News:
    it throws a segmentation fault and crashes. I'm going to be focusing my time on getting SPICE to 
    do a clean compile in hope of the seg fault being fixed by that. 
 
--Ethan Mancini
+-ETM
