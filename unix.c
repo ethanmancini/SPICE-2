@@ -369,7 +369,11 @@ static void GrabArgs(int argc, char* argv[], char* envp[])
     // printf("GrabArgs: copied argc/argv to local variables\n");
 }
 
-__attribute__((section(".init_array"))) void (* PtrGrabArgs)(int,char*[],char*[]) = &GrabArgs;
+#ifdef __APPLE__
+    __attribute__((section("__DATA,__mod_init_func"))) void (* PtrGrabArgs)(int,char*[],char*[]) = &GrabArgs;
+#else
+    __attribute__((section(".init_array"))) void (* PtrGrabArgs)(int,char*[],char*[]) = &GrabArgs;
+#endif 
 
 #ifdef MISCTEST
 
