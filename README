@@ -1,13 +1,8 @@
-SPICE 2 Hacked for Linux (AMD-64 only)
+Spice 2
 Modifications by Mike Uchima (aka JustBrewIt) - justbrewit@pobox.com - June 9, 2016
 Further Modifications by Tom Russo - January 2020
-
-Build Instructions for Ubuntu 14.04 LTS 64-bit:
-
-1. Make sure you have the gfortran package installed (i.e. "apt-get install
-   gfortran").
-
-2. Run the build script in this directory (i.e. "./build").
+Modified to compile on Mac by Ulrich Steinmann - Feb 2020
+For Testing purposes
 
 News: 
 1/20/20
