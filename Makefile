@@ -1,5 +1,5 @@
-CXX = gcc
-CXXFLAGS = -g -O0
+CC = gcc
+CFLAGS = -g -O0 -Wno-error
 FC = gfortran
 FFLAGS = -g -O0 -finteger-4-integer-8 -std=legacy
 
@@ -14,7 +14,7 @@ spice: $(OBJS)
 	$(FC) -c $(FFLAGS) $*.f -o $*.o 
 
 %.o: %.c
-	$(CXX) $(CXXFLAGS) -c $*.c -o $*.o
+	$(CC) $(CFLAGS) -c $*.c -o $*.o
 
 clean:
 	rm -f $(OBJS) spice
