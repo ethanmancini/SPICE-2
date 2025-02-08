@@ -60,11 +60,11 @@ xdate_( chr )
         month = itoc( buffer->tm_mon + 1 );   /* month is zero based */
         while( *month )
                 *chr++ = *month++;
-        *chr++ = '\/';
+        *chr++ = '/';
         day = itoc( buffer->tm_mday );
         while( *day )
                 *chr++ = *day++;
-        *chr++ = '\/';
+        *chr++ = '/';
         year = itoc( buffer->tm_year );
         while( *year )
                 *chr++ = *year++;
@@ -100,7 +100,7 @@ dblsgl_( cstar16, numwds )
 	float	*cstar8;
 	int	i;
 
-	return;
+	return( 0 );
 	cstar8 = (float *) cstar16;
 	for ( i = 0; i < (*numwds)/4; i++ ) {
 		cstar8[ i ] = cstar16[ 2*i ];
@@ -109,20 +109,19 @@ dblsgl_( cstar16, numwds )
 
 
 #include <stdio.h>
+#include <stdlib.h>
 FILE	*rawfile;  /* pointer to raw file  */
 
-static int xargc;  /* number of arguments in UNIX command */
-static char    **xargv;/* pointer to an array of pointers to
+static int xargc;    /* number of arguments in UNIX command */
+static char **xargv; /* pointer to an array of pointers to
+                        arguments in UNIX command line  */
 
-    /*
+/*
  * Open raw data file.  Return 1 if file is opened,
  *  return 0 if file is not opened
  */
 iopraw_()
 {
-	// extern	int	xargc;	/* number of arguments in UNIX command */
-	// extern	char	**xargv;/* pointer to an array of pointers to
-	//			arguments in UNIX command line  */
 	int	i;
 	char	*filename = NULL;/* name of raw file */
 
@@ -366,10 +365,14 @@ static void GrabArgs(int argc, char* argv[], char* envp[])
 {
     xargc = argc;
     xargv = argv;
-    // printf("GrabArgs: copied argc/argv to local variables\n");
+    /* printf("GrabArgs: copied argc/argv to local variables\n"); */
 }
 
-__attribute__((section(".init_array"))) void (* PtrGrabArgs)(int,char*[],char*[]) = &GrabArgs;
+#ifdef __APPLE__
+    __attribute__((section("__DATA,__mod_init_func"))) void (* PtrGrabArgs)(int,char*[],char*[]) = &GrabArgs;
+#else
+    __attribute__((section(".init_array"))) void (* PtrGrabArgs)(int,char*[],char*[]) = &GrabArgs;
+#endif 
 
 #ifdef MISCTEST
 
