@@ -7,13 +7,13 @@
 /* declarations to avoid warnings */
 void mcopy(char*, char*, int);
 void mclear(char*,int);
+char  *itoc( int );
 
 /*
  * loc_ - return the address of arg
  */
 unsigned long
-loc_( arg )
-	long int *arg;
+loc_( long int *arg )
 {
 	return( (unsigned long) arg );
 }
@@ -23,8 +23,7 @@ loc_( arg )
 /*
  * times_ - c routine to call library routine times
  */
-void times_( iarg )
-	int *iarg ;
+void times_( int *iarg )
 {
   times( (struct tms *)iarg );
 }
@@ -35,12 +34,9 @@ void times_( iarg )
 /*
  * xtime_ - fortran routine for character time
  */
-void xtime_( chr )
-	char *chr;
+void xtime_( char *chr )
 {
-	struct tm	*localtime();
-	char		*asctime(),	*character;
-	long		time();
+	char		*character;
 	long		tloc,	scum;
 	int		i;
 
@@ -53,12 +49,10 @@ void xtime_( chr )
 /*
  * xdate_ - fortran routine for character date
  */
-void xdate_( chr )
-	char	*chr;
+void xdate_( char *chr )
 {
-	struct	tm	*localtime(),	*buffer;
-	char		*asctime(),	*month,	*day,	*year,	*itoc();
-	long		time();
+	struct	tm	*buffer;
+	char		*month,	*day,	*year;
 	long		tloc,	scum;
 
         tloc = time( & scum );
@@ -79,8 +73,7 @@ void xdate_( chr )
  * itoc
  */
 char  *
-itoc( number )
-	int	number;
+itoc( int number )
 {
   static char string[3];
 
@@ -102,9 +95,7 @@ itoc( number )
  * Note that as written here, this function actually does nothing, it is
  * provide strictly so that the fortran call in spice.f works
  */
-void dblsgl_( cstar16, numwds )
-	double	*cstar16;
-	int	*numwds;
+void dblsgl_( double *cstar16, int *numwds )
 {
 	float	*cstar8;
 	int	i;
@@ -168,9 +159,7 @@ void clsraw_()
  * Write into raw file numwds 16 bit words starting
  *  at location data
  */
-void fwrite_( data, numwds )
-	char	*data;
-	int	*numwds;
+void fwrite_( char* data, int *numwds )
 {
 	fflush( stderr );
 	fwrite( data, 2, *numwds, rawfile );
@@ -180,10 +169,7 @@ void fwrite_( data, numwds )
 /*
  * Zero, copy and move for vax unix.
  */
-void move_( array1, index1, array2, index2, length )
-	register char	*array1, *array2;
-	register int	*length;
-	int		*index1, *index2;
+void move_( char * array1, int *index1, char *array2, int *index2, int *length )
 {
 	array1 += *index1 - 1;
 	array2 += *index2 - 1;
@@ -206,49 +192,37 @@ void move_( array1, index1, array2, index2, length )
   These should really be named for the data types they zero instead of
   the sizes!
 */
-void zero4_( array, length )
-	char		*array;
-	unsigned	*length;
+void zero4_( char *array, unsigned *length )
 {
 	mclear( array, *length * 8 );
 }
 
 
-void zero8_( array, length )
-	char		*array;
-	unsigned	*length;
+void zero8_( char *array, unsigned *length )
 {
 	mclear( array, *length * 8 );
 }
 
 
-void zero16_( array, length )
-	char		*array;
-	unsigned	*length;
+void zero16_( char *array, unsigned *length )
 {
 	mclear( array, *length * 8 );
 }
 
 
-void copy4_( from, to, length )
-	char		*from, *to;
-	int		*length;
+void copy4_( char *from, char *to, int *length )
 {
 	mcopy( from, to, *length * 8 );
 }
 
 
-void copy8_( from, to, length )
-	char		*from, *to;
-	int		*length;
+void copy8_( char *from, char *to, int *length )
 {
 	mcopy( from, to, *length * 8 );
 }
 
 
-void copy16_( from, to, length )
-	char		*from, *to;
-	int		*length;
+void copy16_( char *from, char *to, int *length )
 {
 	mcopy( from, to, *length * 8 );
 }
@@ -266,9 +240,7 @@ void copy16_( from, to, length )
 /*
  * mclear - clear memory.
  */
-void mclear( data, size )
-	char		*data;
-	int		size;
+void mclear( char *data, int size )
 {
 #ifdef	VAXUNIXASM
 	register int	i = VAXMAXSIZE;
@@ -290,9 +262,7 @@ void mclear( data, size )
 /*
  * mcopy - copy memory.
  */
-void mcopy( from, to, size )
-	char		*from,	*to;
-	int		size;
+void mcopy( char *from, char *to, int size )
 {
 #ifdef	VAXUNIXASM
 	register int		i = VAXMAXSIZE;
@@ -345,9 +315,7 @@ void mcopy( from, to, size )
  * mcmp - compare memory.
  */
 int
-mcmp( from, to, size )
-	char		*from,	*to;
-	int		size;
+mcmp( char *from, char *to, int size )
 {
 #ifdef	VAXUNIXASM
 	register int	i = VAXMAXSIZE;
