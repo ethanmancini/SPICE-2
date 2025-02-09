@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -g -O0 -Wno-error
+CFLAGS = -g -O0 -Wno-error=implicit-int -Wno-error=implicit-function-declaration
 FC = gfortran
 FFLAGS = -g -O0 -finteger-4-integer-8 -std=legacy
 
